@@ -10,8 +10,7 @@ function showPath(pathId) {
 
     // Kurze Pause, damit die Kachel im Hintergrund fertig geladen ist
     setTimeout(() => {
-        // HIER IST DIE LÖSUNG: Wir setzen den Puffer massiv nach oben (auf 250 Pixel).
-        // Das gleicht aus, dass der Header beim Scrollen Platz wegnimmt und die Kachel nach oben zieht.
+        // Puffer auf 250 Pixel: Das gleicht aus, dass der Header beim Scrollen Platz wegnimmt und die Kachel nach oben zieht.
         const headerOffset = 250; 
         
         // Berechne die aktuelle Position der Kachel und ziehe den riesigen Puffer ab
