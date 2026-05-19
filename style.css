@@ -1,0 +1,309 @@
+:root {
+    --primary-color: #005f73; /* Modernes Petrol/Blau */
+    --secondary-color: #0a9396;
+    --accent-color: #ee9b00; /* Auffälliges Orange für Buttons */
+    --text-color: #333;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    /* NEU: Flexbox-Layout für die gesamte Seite, mindestens 100% der Bildschirmhöhe */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    /* NEU: Lässt den Hauptbereich dynamisch den restlichen Platz füllen */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+/* --- Dynamischer Header --- */
+header {
+    background-color: var(--card-bg);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* Weicher Übergang für alle Änderungen */
+    transition: padding 0.4s ease, max-height 0.4s ease;
+    
+    /* --- KORREKTUR: Harte max-height entfernt --- */
+    /* Dies erlaubt dem Header, sich so weit auszudehnen, wie für den Text nötig ist. */
+    max-height: none; 
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-placeholder img {
+    max-width: 180px; /* Initial etwas kleiner, das ist gut */
+    height: auto;
+    transition: max-width 0.4s ease, margin 0.4s ease;
+}
+
+#header-text {
+    /* Container für den Text */
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.4s ease;
+    max-height: none; 
+    opacity: 1;
+    overflow: hidden;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.1rem;
+    /* NEU: Weicher Übergang für die Schriftgröße */
+    transition: font-size 0.4s ease, margin 0.4s ease;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.1rem;
+    /* NEU: Weicher Übergang für die Schriftgröße */
+    transition: font-size 0.4s ease;
+}
+
+/* --- Minimized State (wird beim Scrollen durch JS aktiviert) --- */
+header.shrink {
+    padding: 0.5rem 1rem;
+    
+    /* --- KORREKTUR: Behalte die kompakten Abmessungen bei --- */
+    max-height: none; /* Flexibel bleiben, aber durch Textausblendung kompakt */
+    flex-direction: row; /* Elemente könnten nebeneinander, hier bleibt es zentriert */
+}
+
+/* --- Minimized State (wird beim Scrollen durch JS aktiviert) --- */
+header.shrink {
+    padding: 0.5rem 1rem;
+    max-height: none; 
+    flex-direction: row; 
+    /* NEU: Abstand zwischen Logo und Text */
+    gap: 1.5rem; 
+}
+
+header.shrink .logo-placeholder img {
+    max-width: 90px; /* Logo wird sehr klein */
+    margin-bottom: 0;
+}
+
+header.shrink #header-text {
+    /* NEU: Text bleibt sichtbar und wird linksbündig neben dem Logo angeordnet */
+    max-height: 100px; 
+    opacity: 1;    
+    margin: 0;
+    text-align: left; 
+}
+
+header.shrink h1 {
+    /* NEU: Schriftgröße schrumpft mit */
+    font-size: 1.1rem; 
+    margin: 0;
+}
+
+header.shrink .subtitle {
+    /* NEU: Untertitel schrumpft mit */
+    font-size: 0.8rem; 
+    margin: 0;
+}
+
+
+
+/* --- Auswahl-Sektion --- */
+#selection {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* NEU: Optische Korrektur nach oben */
+    padding-bottom: 10vh; 
+}
+
+
+#selection h2 {
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    /* NEU: Verringert den Zeilenabstand, wenn der Text umbricht */
+    line-height: 1.2; 
+}
+
+.button-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+}
+
+.btn-accent:hover {
+    background-color: #ca8500;
+}
+
+/* --- Versteckte Pfade --- */
+.path-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+    margin-top: 3rem;
+}
+
+.path-section.active {
+    display: block;
+    opacity: 1;
+}
+
+.content-card {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--primary-color);
+}
+
+.content-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* --- Finale Punkt-zu-Punkt Timeline --- */
+.timeline {
+    margin: 2rem 0;
+    padding-left: 1rem; /* Platz für die Zentrierung */
+}
+
+.timeline-event {
+    position: relative;
+    padding-left: 2.5rem;
+    padding-bottom: 2.5rem;
+    /* Der Strich wird hier als Border definiert */
+    border-left: 3px solid var(--secondary-color);
+    /* Ausrichtung auf die Mitte der Punkte */
+    margin-left: 9px; 
+}
+
+/* WICHTIG: Das letzte Element hat keinen Strich mehr nach unten */
+.timeline-event:last-child {
+    border-left: 3px solid transparent;
+    padding-bottom: 0;
+}
+
+.timeline-event::before {
+    content: '';
+    position: absolute;
+    /* Punkt liegt exakt auf der 3px-Linie */
+    left: -1.5px; 
+    /* Ausrichtung auf die erste Textzeile */
+    top: 12px; 
+    width: 18px;
+    height: 18px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    /* Perfekte Zentrierung */
+    transform: translate(-50%, -50%); 
+    z-index: 2;
+    border: 3px solid var(--bg-color);
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+    /* Korrektur für Zeilenhöhe */
+    line-height: 1; 
+}
+
+/* --- PDF Embed --- */
+.pdf-container {
+    width: 100%;
+    height: 600px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    /* NEU: "auto" statt "hidden", damit man wischen kann, falls ein Handy das Skalieren blockiert */
+    overflow: auto; 
+    /* NEU: Zwingt iOS dazu, flüssiges Touch-Scrollen innerhalb der Box zu erlauben */
+    -webkit-overflow-scrolling: touch; 
+    margin-top: 1.5rem;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* --- Mobile Anpassungen --- */
+@media (max-width: 600px) {
+    .btn { width: 100%; }
+    
+    /* NEU: PDF-Box auf Handys etwas dynamischer machen, 
+       damit man am Rand noch die eigentliche Webseite scrollen kann */
+    .pdf-container {
+        height: 65vh; 
+    }
+}
